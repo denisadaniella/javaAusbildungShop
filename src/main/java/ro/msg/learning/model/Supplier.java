@@ -14,4 +14,7 @@ public class Supplier {
         this.name = name;
     }
 
+    public Supplier() {
+
+    }
 }

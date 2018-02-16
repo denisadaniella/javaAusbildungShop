@@ -19,4 +19,8 @@ public class Customer {
         this.lastName = lastName;
         this.username = username;
     }
+
+    public Customer() {
+
+    }
 }

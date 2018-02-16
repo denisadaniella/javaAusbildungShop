@@ -22,4 +22,8 @@ public class Address {
         this.county = county;
         this.streetAddress = streetAddress;
     }
+
+    public Address() {
+
+    }
 }

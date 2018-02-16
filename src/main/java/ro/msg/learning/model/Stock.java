@@ -19,4 +19,8 @@ public class Stock {
         this.location = location;
         this.quantity = quantity;
     }
+
+    public Stock() {
+
+    }
 }

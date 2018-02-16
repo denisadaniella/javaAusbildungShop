@@ -32,4 +32,6 @@ public class Product {
         this.supplier = supplier;
     }
 
+    public Product() {
+    }
 }

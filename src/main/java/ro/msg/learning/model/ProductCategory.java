@@ -16,4 +16,7 @@ public class ProductCategory {
         this.name = name;
         this.description = description;
     }
+
+    public ProductCategory() {
+    }
 }

@@ -16,4 +16,8 @@ public class Location {
         this.name = name;
         this.address = address;
     }
+
+    public Location() {
+
+    }
 }

@@ -19,4 +19,9 @@ public class Order {
         this.customer = customer;
         this.address = address;
     }
+
+    public Order() {
+
+    }
+
 }
