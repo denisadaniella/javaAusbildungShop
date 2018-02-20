@@ -2,21 +2,36 @@ package ro.msg.learning.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
+@Entity
+@Table(name = "PRODUCTCATEGORY", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class ProductCategory {
 
-    private int productCategoryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false)
+    private Integer id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
-    public ProductCategory(int productCategoryId, String name, String description) {
-        this.productCategoryId = productCategoryId;
+    public ProductCategory(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public ProductCategory() {
+    protected ProductCategory() {
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "ProductCategory[id=%d, name='%s', description='%s']",
+                id, name, description);
     }
 }

@@ -2,36 +2,57 @@ package ro.msg.learning.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
+@Entity
+@Table(name = "PRODUCT")
 public class Product {
 
-    private int productId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false)
+    private Integer id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "weight")
     private double weight;
 
-    private int category; //productCategoryId
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "productcategoryid", referencedColumnName = "id")
+    private ProductCategory productCategory;
 
-    private int supplier; //supplierId
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "supplierid", referencedColumnName = "id")
+    private Supplier supplier;
 
 
-    public Product(int productId, String name, String description, BigDecimal price, double weight, int category, int supplier) {
-        this.productId = productId;
+    public Product(String name, String description, BigDecimal price, double weight, ProductCategory productCategory, Supplier supplier) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.weight = weight;
-        this.category = category;
+        this.productCategory = productCategory;
         this.supplier = supplier;
     }
 
-    public Product() {
+    protected Product() {
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Product[id=%d, name='%s', description='%s', price='%.2f', weight='%.2f', productcategoryid=%d, supplierid=%d]",
+                id, name, description, price, weight, productCategory.getId(), supplier.getId());
+    }
+
 }

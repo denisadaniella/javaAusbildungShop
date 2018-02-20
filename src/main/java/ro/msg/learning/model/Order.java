@@ -2,26 +2,45 @@ package ro.msg.learning.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
+@Entity
+@Table(name = "ORDERS")
 public class Order {
 
-    private int orderId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false)
+    private Integer id;
 
-    private int shippedFrom; // locationId
+    @ManyToOne
+    @JoinColumn(name = "customerid", referencedColumnName = "id")
+    private Customer customer;
 
-    private int customer; //customerId
+    @ManyToOne
+    @JoinColumn(name = "locationid", referencedColumnName = "id")
+    private Location location;
 
-    private int address; //addressId
+    @ManyToOne
+    @JoinColumn(name = "addressid", referencedColumnName = "id")
+    private Address address;
 
-    public Order(int orderId, int shippedFrom, int customer, int address) {
-        this.orderId = orderId;
-        this.shippedFrom = shippedFrom;
+    public Order(Customer customer, Location location, Address address) {
         this.customer = customer;
+        this.location = location;
         this.address = address;
     }
 
-    public Order() {
+    protected Order() {
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Order[id=%d, locationid=%d, customerid=%d, addressid=%d]",
+                id, location.getId(), customer.getId(), address.getId());
     }
 
 }

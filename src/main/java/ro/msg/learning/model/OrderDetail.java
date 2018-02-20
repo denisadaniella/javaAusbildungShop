@@ -2,25 +2,43 @@ package ro.msg.learning.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
+@Entity
+@Table(name = "ORDERDETAIL", uniqueConstraints = @UniqueConstraint(columnNames = {"orderid", "productid"}))
 public class OrderDetail {
 
-    private int orderDetailId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false)
+    private Integer id;
 
-    private int order; //orderId
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "orderid", referencedColumnName = "id")
+    private Order order;
 
-    private int product; //productId
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "productid", referencedColumnName = "id")
+    private Product product;
 
+    @Column(name = "quantity")
     private int quantity;
 
-    public OrderDetail(int orderDetailId, int order, int product, int quantity) {
-        this.orderDetailId = orderDetailId;
+    public OrderDetail(Order order, Product product, int quantity) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
     }
 
-    public OrderDetail() {
+    protected OrderDetail() {
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "OrderDetail[id=%d, orderid=%d, productid=%d, quantity=%d]",
+                id, order.getId(), product.getId(), quantity);
     }
 }
