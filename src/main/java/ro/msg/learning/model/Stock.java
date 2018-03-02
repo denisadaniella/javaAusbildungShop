@@ -1,6 +1,7 @@
 package ro.msg.learning.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -22,7 +23,8 @@ public class Stock {
     @JoinColumn(name = "locationid", referencedColumnName = "id")
     private Location location;
 
-    @Column(name = "quantity")
+    @NonNull
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     public Stock(Product product, Location location, Integer quantity) {

@@ -3,6 +3,8 @@ package ro.msg.learning.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,17 +16,21 @@ public class Order {
     @Column(name = "id", updatable = false)
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "customerid", referencedColumnName = "id")
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "locationid", referencedColumnName = "id")
     private Location location;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "addressid", referencedColumnName = "id")
     private Address address;
+
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private Set<OrderDetail> orderDetails;
 
     public Order(Customer customer, Location location, Address address) {
         this.customer = customer;
@@ -43,4 +49,14 @@ public class Order {
                 id, location.getId(), customer.getId(), address.getId());
     }
 
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location.getId(), customer.getId(), address.getId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }

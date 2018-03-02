@@ -1,6 +1,7 @@
 package ro.msg.learning.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -14,15 +15,18 @@ public class Address {
     @Column(name = "id", updatable = false)
     private Integer id;
 
-    @Column(name = "country")
+    @NonNull
+    @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "city")
+    @NonNull
+    @Column(name = "city", nullable = false)
     private String city;
 
     @Column(name = "county")
     private String county;
 
+    @NonNull
     @Column(name = "street")
     private String street;
 

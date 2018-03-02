@@ -1,6 +1,7 @@
 package ro.msg.learning.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
@@ -14,10 +15,12 @@ public class Location {
     @Column(name = "id", updatable = false)
     private Integer id;
 
-    @Column(name = "name")
+    @NonNull
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
+    @NonNull
+    @ManyToOne(optional = false)
     @JoinColumn(name = "addressid", referencedColumnName = "id")
     private Address address;
 

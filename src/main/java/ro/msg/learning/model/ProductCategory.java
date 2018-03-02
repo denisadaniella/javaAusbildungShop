@@ -1,8 +1,10 @@
 package ro.msg.learning.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,11 +16,15 @@ public class ProductCategory {
     @Column(name = "id", updatable = false)
     private Integer id;
 
-    @Column(name = "name")
+    @NonNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
+    private Set<Product> products;
 
     public ProductCategory(String name, String description) {
         this.name = name;
@@ -31,7 +37,8 @@ public class ProductCategory {
     @Override
     public String toString() {
         return String.format(
-                "ProductCategory[id=%d, name='%s', description='%s']",
+                "ProductCategory[id=%d, name='%s', description='%s'] ",
                 id, name, description);
     }
+
 }

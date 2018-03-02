@@ -1,9 +1,12 @@
 package ro.msg.learning.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -15,13 +18,15 @@ public class Product {
     @Column(name = "id", updatable = false)
     private Integer id;
 
-    @Column(name = "name")
+    @NonNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
+    @NonNull
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     @Column(name = "weight")
@@ -34,6 +39,9 @@ public class Product {
     @ManyToOne(optional = false)
     @JoinColumn(name = "supplierid", referencedColumnName = "id")
     private Supplier supplier;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<OrderDetail> orderDetails;
 
 
     public Product(String name, String description, BigDecimal price, double weight, ProductCategory productCategory, Supplier supplier) {
@@ -50,9 +58,26 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format(
-                "Product[id=%d, name='%s', description='%s', price='%.2f', weight='%.2f', productcategoryid=%d, supplierid=%d]",
-                id, name, description, price, weight, productCategory.getId(), supplier.getId());
+        if (productCategory != null && supplier != null) {
+            return String.format(
+                    "Product[id=%d, name='%s', description='%s', price='%.2f', weight='%.2f', productcategoryid=%d, supplierid=%d] ",
+                    id, name, description, price, weight, productCategory.getId(), supplier.getId());
+        } else {
+            return String.format(
+                    "Product[id=%d] ", id);
+        }
     }
 
+    @Override
+    public int hashCode() {
+        if (name == null || description == null || price == null || productCategory == null || supplier == null)
+            return Objects.hash(id);
+
+        return Objects.hash(id, name, description, price, weight, productCategory.getId(), supplier.getId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }
