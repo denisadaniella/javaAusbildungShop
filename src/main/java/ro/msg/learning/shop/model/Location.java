@@ -1,22 +1,26 @@
-package ro.msg.learning.model;
+package ro.msg.learning.shop.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
+@ToString(exclude = "address")
+@EqualsAndHashCode(exclude = "address")
 @Entity
 @Table(name = "LOCATION", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Integer id;
 
     @NonNull
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @NonNull
@@ -24,19 +28,8 @@ public class Location {
     @JoinColumn(name = "addressid", referencedColumnName = "id")
     private Address address;
 
-    public Location(String name, Address address) {
-        this.name = name;
-        this.address = address;
-    }
-
     protected Location() {
 
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Location[id=%d, name='%s', addressid=%d]",
-                id, name, address.getId());
-    }
 }

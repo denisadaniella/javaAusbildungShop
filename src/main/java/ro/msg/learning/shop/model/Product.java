@@ -1,35 +1,38 @@
-package ro.msg.learning.model;
+package ro.msg.learning.shop.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.Set;
 
 @Data
+@ToString(exclude = {"productCategory", "supplier", "orderDetails"})
+@EqualsAndHashCode(exclude = {"productCategory", "supplier", "orderDetails"})
 @Entity
 @Table(name = "PRODUCT")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Integer id;
 
     @NonNull
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "description")
+
     private String description;
 
     @NonNull
-    @Column(name = "price", nullable = false)
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(name = "weight")
+
     private double weight;
 
     @ManyToOne(optional = false)
@@ -56,28 +59,4 @@ public class Product {
     protected Product() {
     }
 
-    @Override
-    public String toString() {
-        if (productCategory != null && supplier != null) {
-            return String.format(
-                    "Product[id=%d, name='%s', description='%s', price='%.2f', weight='%.2f', productcategoryid=%d, supplierid=%d] ",
-                    id, name, description, price, weight, productCategory.getId(), supplier.getId());
-        } else {
-            return String.format(
-                    "Product[id=%d] ", id);
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        if (name == null || description == null || price == null || productCategory == null || supplier == null)
-            return Objects.hash(id);
-
-        return Objects.hash(id, name, description, price, weight, productCategory.getId(), supplier.getId());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
 }

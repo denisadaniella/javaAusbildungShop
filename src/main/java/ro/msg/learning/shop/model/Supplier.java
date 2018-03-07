@@ -1,23 +1,27 @@
-package ro.msg.learning.model;
+package ro.msg.learning.shop.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@ToString(exclude = "products")
+@EqualsAndHashCode(exclude = "products")
 @Entity
 @Table(name = "SUPPLIER", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Integer id;
 
     @NonNull
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
@@ -29,13 +33,6 @@ public class Supplier {
 
     protected Supplier() {
 
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Supplier[id=%d, name='%s']",
-                id, name);
     }
 
 }

@@ -1,19 +1,22 @@
-package ro.msg.learning.model;
+package ro.msg.learning.shop.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 @Data
+@ToString(exclude = {"customer", "location", "address", "orderDetails"})
+@EqualsAndHashCode(exclude = {"customer", "location", "address", "orderDetails"})
 @Entity
 @Table(name = "ORDERS")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Integer id;
 
     @ManyToOne(optional = false)
@@ -32,31 +35,8 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
 
-    public Order(Customer customer, Location location, Address address) {
-        this.customer = customer;
-        this.location = location;
-        this.address = address;
-    }
-
     protected Order() {
 
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Order[id=%d, locationid=%d, customerid=%d, addressid=%d]",
-                id, location.getId(), customer.getId(), address.getId());
-    }
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, location.getId(), customer.getId(), address.getId());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
 }

@@ -1,18 +1,22 @@
-package ro.msg.learning.model;
+package ro.msg.learning.shop.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
+@ToString(exclude = {"order", "product"})
+@EqualsAndHashCode(exclude = {"order", "product"})
 @Entity
 @Table(name = "ORDERDETAIL", uniqueConstraints = @UniqueConstraint(columnNames = {"orderid", "productid"}))
 public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false)
+    @Column(updatable = false)
     private Integer id;
 
     @ManyToOne(optional = false)
@@ -24,23 +28,11 @@ public class OrderDetail {
     private Product product;
 
     @NonNull
-    @Column(name = "quantity", nullable = false)
+    @Column(nullable = false)
     private int quantity;
-
-    public OrderDetail(Order order, Product product, int quantity) {
-        this.order = order;
-        this.product = product;
-        this.quantity = quantity;
-    }
 
     protected OrderDetail() {
 
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "OrderDetail[id=%d, orderid=%d, productid=%d, quantity=%d]",
-                id, order.getId(), product.getId(), quantity);
-    }
 }
