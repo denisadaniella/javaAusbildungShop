@@ -28,8 +28,12 @@ public class Location {
     @JoinColumn(name = "addressid", referencedColumnName = "id")
     private Address address;
 
-    protected Location() {
+    public Location() {
 
     }
 
+    public Location(String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
 }

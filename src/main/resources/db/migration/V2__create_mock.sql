@@ -47,8 +47,8 @@ insert into PRODUCT(ID, NAME, DESCRIPTION, PRICE, WEIGHT, PRODUCTCATEGORYID, SUP
 insert into PRODUCT(ID, NAME, DESCRIPTION, PRICE, WEIGHT, PRODUCTCATEGORYID, SUPPLIERID) values (8, 'Role/Patine Wildstar ABEC-7', 'Role/Patine Wildstar ABEC-7, Aluminiu, 39-42, Galben',
     168.99, 1.2, 5, 5);
 
-insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (1, 1, 1, 2);
-insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (2, 2, 1, 5);
+insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (1, 1, 1, 200);
+insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (2, 2, 1, 50);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (3, 3, 1, 0);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (4, 4, 1, 3);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (5, 5, 1, 1);
@@ -56,8 +56,8 @@ insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (6, 6, 1, 4);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (7, 7, 1, 6);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (8, 8, 1, 0);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (9, 1, 2, 2);
-insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (10, 2, 2, 1);
-insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (11, 3, 2, 1);
+insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (10, 2, 2, 100);
+insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (11, 3, 2, 15);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (12, 4, 2, 0);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (13, 5, 2, 0);
 insert into STOCK(ID, PRODUCTID, LOCATIONID, QUANTITY) values (14, 6, 2, 2);

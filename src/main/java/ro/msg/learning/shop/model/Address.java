@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "ADDRESS")
+@NoArgsConstructor
 public class Address {
 
     @Id
@@ -28,10 +30,5 @@ public class Address {
     @NonNull
     @Column(nullable = false)
     private String street;
-
-
-    protected Address() {
-
-    }
 
 }

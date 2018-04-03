@@ -1,9 +1,7 @@
 package ro.msg.learning.shop.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,6 +12,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"productCategory", "supplier", "orderDetails"})
 @Entity
 @Table(name = "PRODUCT")
+@AllArgsConstructor
 public class Product {
 
     @Id
@@ -44,6 +43,7 @@ public class Product {
     private Supplier supplier;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<OrderDetail> orderDetails;
 
 
@@ -56,7 +56,8 @@ public class Product {
         this.supplier = supplier;
     }
 
-    protected Product() {
+    public Product() {
     }
+
 
 }

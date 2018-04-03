@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -27,6 +28,7 @@ public class ProductCategory {
     private String description;
 
     @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Product> products;
 
     public ProductCategory(String name, String description) {

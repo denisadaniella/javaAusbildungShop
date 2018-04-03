@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -21,6 +22,7 @@ public class OrderDetail {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "orderid", referencedColumnName = "id")
+    @JsonIgnore
     private Order order;
 
     @ManyToOne(optional = false)
@@ -35,4 +37,9 @@ public class OrderDetail {
 
     }
 
+    public OrderDetail(Order order, Product product, int quantity) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+    }
 }

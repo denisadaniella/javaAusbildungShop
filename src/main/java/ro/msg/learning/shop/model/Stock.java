@@ -1,9 +1,6 @@
 package ro.msg.learning.shop.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"product", "location"})
 @Entity
 @Table(name = "STOCK", uniqueConstraints = @UniqueConstraint(columnNames = {"productid", "locationid"}))
+@AllArgsConstructor
+@NoArgsConstructor
 public class Stock {
 
     @Id
@@ -30,9 +29,4 @@ public class Stock {
     @NonNull
     @Column(nullable = false)
     private Integer quantity;
-
-    protected Stock() {
-
-    }
-
 }

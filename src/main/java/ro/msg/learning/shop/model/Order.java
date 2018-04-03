@@ -2,9 +2,12 @@ package ro.msg.learning.shop.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
+import ro.msg.learning.shop.util.LocalDateTimeConverter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -12,12 +15,17 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"customer", "location", "address", "orderDetails"})
 @Entity
 @Table(name = "ORDERS")
+@NoArgsConstructor
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Integer id;
+
+    @Column(name = "createtime")
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime createTime;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "customerid", referencedColumnName = "id")
@@ -34,9 +42,5 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderDetail> orderDetails;
-
-    protected Order() {
-
-    }
 
 }
