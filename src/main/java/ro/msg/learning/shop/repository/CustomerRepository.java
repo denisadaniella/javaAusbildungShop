@@ -4,4 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import ro.msg.learning.shop.model.Customer;
 
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
+
+    Customer findByUserId(Integer userid);
+
 }

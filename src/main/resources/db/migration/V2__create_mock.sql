@@ -1,7 +1,20 @@
-insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERNAME) values (1, 'Nicolae', 'Ionescu', 'Nicu');
-insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERNAME) values (2, 'Daniela', 'Popescu', 'Dana');
-insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERNAME) values (3, 'Marius', 'Coman', 'Mariuscoman');
-insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERNAME) values (4, 'Ioana', 'Sorescu', 'Ioanas');
+insert into USERS(ID, USERNAME, PASSWORD) values (1, 'nicu', 'nicu_parola');
+insert into USERS(ID, USERNAME, PASSWORD) values (2, 'dana', 'dana_parola');
+insert into USERS(ID, USERNAME, PASSWORD) values (3, 'mariuscoman', 'mariuscoman_parola');
+insert into USERS(ID, USERNAME, PASSWORD) values (4, 'ioana', 'ioanas_parola');
+insert into USERS(ID, USERNAME, PASSWORD) values (5, 'user', 'parola');
+
+insert into USERROLE(ID, ROLE, USERID) values (1, 'USER', 1);
+insert into USERROLE(ID, ROLE, USERID) values (2, 'USER', 2);
+insert into USERROLE(ID, ROLE, USERID) values (3, 'USER', 3);
+insert into USERROLE(ID, ROLE, USERID) values (4, 'USER', 4);
+insert into USERROLE(ID, ROLE, USERID) values (5, 'USER', 5);
+
+insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERID) values (1, 'Nicolae', 'Ionescu', 1);
+insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERID) values (2, 'Daniela', 'Popescu', 2);
+insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERID) values (3, 'Marius', 'Coman', 3);
+insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERID) values (4, 'Ioana', 'Sorescu', 4);
+insert into CUSTOMER(ID, FIRSTNAME, LASTNAME, USERID) values (5, 'User', 'User', 5);
 
 insert into ADDRESS(ID, COUNTRY, CITY, COUNTY, STREET) values(1,'Romania', 'Cluj-Napoca', 'Cluj', 'Brassay 9');
 insert into ADDRESS(ID, COUNTRY, CITY, COUNTY, STREET) values(2,'Romania', 'Cluj-Napoca', 'Cluj', 'Eroilor 3');

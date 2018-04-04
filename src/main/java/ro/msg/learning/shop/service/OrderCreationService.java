@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.dto.OrderCreationDto;
@@ -12,6 +13,7 @@ import ro.msg.learning.shop.model.Order;
 import ro.msg.learning.shop.model.OrderDetail;
 import ro.msg.learning.shop.model.Stock;
 import ro.msg.learning.shop.repository.*;
+import ro.msg.learning.shop.security.CustomUserDetails;
 import ro.msg.learning.shop.strategy.LocationStrategy;
 
 import java.util.HashSet;
@@ -88,7 +90,9 @@ public class OrderCreationService {
         }
         order.setAddress(address);
         order.setLocation(requiredProductDtos.get(0).getLocation());
-        order.setCustomer(customerRepository.findOne(1)); //TODO
+
+        CustomUserDetails customUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        order.setCustomer(customerRepository.findByUserId(customUserDetails.getId()));
 
         //Save Order
         Order savedOrder = orderRepository.save(order);

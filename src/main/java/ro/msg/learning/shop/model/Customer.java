@@ -3,17 +3,18 @@ package ro.msg.learning.shop.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
-@ToString(exclude = "orders")
-@EqualsAndHashCode(exclude = "orders")
+@ToString(exclude = {"user", "orders"})
+@EqualsAndHashCode(exclude = {"user", "orders"})
 @Entity
-@Table(name = "CUSTOMER", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
+@Table(name = "CUSTOMER")
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -27,16 +28,12 @@ public class Customer {
     @Column(name = "lastname")
     private String lastName;
 
-    @NonNull
-    @Column(nullable = false)
-    private String username;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userid", referencedColumnName = "id")
+    @JsonIgnore
+    private User user;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Order> orders;
-
-    protected Customer() {
-
-    }
-
 }
