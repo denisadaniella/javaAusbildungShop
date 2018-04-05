@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ro.msg.learning.shop.util.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,7 +23,6 @@ public class Order {
     private Integer id;
 
     @Column(name = "createtime")
-    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createTime;
 
     @ManyToOne(optional = false)

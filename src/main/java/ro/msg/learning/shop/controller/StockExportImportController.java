@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stock")
+@AllArgsConstructor
 public class StockExportImportController {
 
-    @Autowired
-    StockExportImportService stockExportImportService;
-
+    private final StockExportImportService stockExportImportService;
 
     @GetMapping(value = "/export")
     public @ResponseBody
@@ -29,7 +28,7 @@ public class StockExportImportController {
     String importStock(@RequestBody List<StockDto> stockDtos) {
 
         List<StockDto> stocks = stockExportImportService.importStocks(stockDtos);
-        return String.valueOf(stocks.toString());
+        return stocks.toString();
     }
 
 }

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class OrderCreationDto {
 
-    LocalDateTime localDateTime;
-    Address deliveryAddress;
-    ArrayList<ProductOrderDto> products;
+    private LocalDateTime localDateTime;
+    private Address deliveryAddress;
+    private ArrayList<ProductOrderDto> products;
 
 }

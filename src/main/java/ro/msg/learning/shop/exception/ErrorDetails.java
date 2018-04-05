@@ -1,8 +1,8 @@
 package ro.msg.learning.shop.exception;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 
-@Data
+@AllArgsConstructor
 public class ErrorDetails {
 
     private String url;

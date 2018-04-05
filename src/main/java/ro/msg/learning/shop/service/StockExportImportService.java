@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.dto.StockDto;
@@ -14,23 +14,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class StockExportImportService {
 
-    @Autowired
-    StockRepository stockRepository;
-
-    @Autowired
-    StockMapper stockMapper;
-
-    @Autowired
-    LocationRepository locationRepository;
+    private final StockRepository stockRepository;
+    private final StockMapper stockMapper;
+    private final LocationRepository locationRepository;
 
     @Transactional
     public List<StockDto> exportStocks(Integer locationId) {
 
-        if (locationId < 0) throw new NegativeInputParameterException(locationId);
+        if (locationId < 0) {
+            throw new NegativeInputParameterException(locationId);
+        }
 
-        if (locationRepository.findOne(locationId) == null) throw new LocationNotFoundException(locationId);
+        if (locationRepository.findOne(locationId) == null) {
+            throw new LocationNotFoundException(locationId);
+        }
 
         List<Stock> stocks = stockRepository.findByLocationId(locationId);
         return stockMapper.toStockDto(stocks);

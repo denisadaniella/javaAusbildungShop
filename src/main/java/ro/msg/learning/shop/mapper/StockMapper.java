@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import ro.msg.learning.shop.dto.StockDto;
 import ro.msg.learning.shop.model.Stock;
@@ -12,15 +12,13 @@ import java.util.stream.Collectors;
 
 
 @Component
+@AllArgsConstructor
 public class StockMapper {
 
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final LocationRepository locationRepository;
 
-    @Autowired
-    LocationRepository locationRepository;
-
-    public StockDto toStockDto(Stock stock) {
+    private StockDto toStockDto(Stock stock) {
         StockDto stockDto = new StockDto();
 
         stockDto.setId(stock.getId());
@@ -47,7 +45,4 @@ public class StockMapper {
         return stock;
     }
 
-    public List<Stock> toStock(List<StockDto> stockDtos) {
-        return stockDtos.stream().map(this::toStock).collect(Collectors.toList());
-    }
 }

@@ -13,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "PRODUCT")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -55,9 +56,5 @@ public class Product {
         this.productCategory = productCategory;
         this.supplier = supplier;
     }
-
-    public Product() {
-    }
-
 
 }

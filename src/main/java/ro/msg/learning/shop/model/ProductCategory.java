@@ -1,10 +1,7 @@
 package ro.msg.learning.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,6 +11,7 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = "products")
 @Entity
 @Table(name = "PRODUCTCATEGORY", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@NoArgsConstructor
 public class ProductCategory {
 
     @Id
@@ -35,9 +33,5 @@ public class ProductCategory {
         this.name = name;
         this.description = description;
     }
-
-    protected ProductCategory() {
-    }
-
 
 }

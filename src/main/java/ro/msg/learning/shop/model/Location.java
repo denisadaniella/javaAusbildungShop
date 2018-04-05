@@ -1,9 +1,6 @@
 package ro.msg.learning.shop.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = "address")
 @Entity
 @Table(name = "LOCATION", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@NoArgsConstructor
 public class Location {
 
     @Id
@@ -27,10 +25,6 @@ public class Location {
     @ManyToOne(optional = false)
     @JoinColumn(name = "addressid", referencedColumnName = "id")
     private Address address;
-
-    public Location() {
-
-    }
 
     public Location(String name, Address address) {
         this.name = name;

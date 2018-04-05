@@ -24,18 +24,14 @@ public class AppWideExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(NegativeInputParameterException.class)
+    @ExceptionHandler({NegativeInputParameterException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody
     ErrorDetails handleIllegalArgumentException(HttpServletRequest request, Exception ex) {
         request.removeAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
         request.setAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE, Collections.singleton(MediaType.APPLICATION_JSON));
 
-        ErrorDetails response = new ErrorDetails();
-        response.setUrl(request.getRequestURL().toString());
-        response.setMessage(ex.getMessage());
-
-        return response;
+        return new ErrorDetails(request.getRequestURL().toString(), ex.getMessage());
     }
 
 
@@ -43,11 +39,7 @@ public class AppWideExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody
     ErrorDetails negativeQuantityExceptionHandler(HttpServletRequest request, Exception ex) {
-        ErrorDetails response = new ErrorDetails();
-        response.setUrl(request.getRequestURL().toString());
-        response.setMessage(ex.getMessage());
-
-        return response;
+        return new ErrorDetails(request.getRequestURL().toString(), ex.getMessage());
     }
 
 
@@ -58,11 +50,7 @@ public class AppWideExceptionHandler extends ResponseEntityExceptionHandler {
         request.removeAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
         request.setAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE, Collections.singleton(MediaType.APPLICATION_JSON));
 
-        ErrorDetails response = new ErrorDetails();
-        response.setUrl(request.getRequestURL().toString());
-        response.setMessage(ex.getMessage());
-
-        return response;
+        return new ErrorDetails(request.getRequestURL().toString(), ex.getMessage());
     }
 
 }

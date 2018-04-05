@@ -1,6 +1,5 @@
 package ro.msg.learning.shop;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +21,7 @@ import java.util.List;
 public class CsvUtilTests {
 
     private final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    CsvUtil<StockDto> csvUtil;
-    List<StockDto> stocks;
+    private CsvUtil<StockDto> csvUtil;
     private ByteArrayInputStream byteArrayInputStream;
 
     @Before
@@ -36,7 +34,7 @@ public class CsvUtilTests {
 
     @Test
     public void exportToCsv() {
-        stocks = new ArrayList<>();
+        List<StockDto> stocks = new ArrayList<>();
         stocks.add(new StockDto(1, 2, 3, 4));
         stocks.add(new StockDto(11, 22, 33, 44));
 
@@ -60,7 +58,7 @@ public class CsvUtilTests {
 
         byteArrayInputStream = new ByteArrayInputStream(inputCSVString.getBytes());
         try {
-            stocks = csvUtil.fromCsv(StockDto.class, byteArrayInputStream);
+            List<StockDto> stocks = csvUtil.fromCsv(StockDto.class, byteArrayInputStream);
 
             Assert.assertEquals("Size of the list: ", 2, stocks.size());
             Assert.assertEquals("Quantity of the first stock: ", Integer.valueOf(4), stocks.get(0).getQuantity());
@@ -70,9 +68,5 @@ public class CsvUtilTests {
         }
     }
 
-    @After
-    public void cleanup() {
-        System.setOut(null);
-    }
 
 }

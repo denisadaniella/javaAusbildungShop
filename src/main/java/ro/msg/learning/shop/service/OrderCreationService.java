@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,27 +21,16 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class OrderCreationService {
 
-    @Autowired
-    OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
+    private final StockRepository stockRepository;
+    private final AddressRepository addressRepository;
+    private final CustomerRepository customerRepository;
+    private final LocationStrategy strategy;
 
-    @Autowired
-    OrderDetailRepository orderDetailRepository;
-
-    @Autowired
-    StockRepository stockRepository;
-
-    @Autowired
-    AddressRepository addressRepository;
-
-    @Autowired
-    CustomerRepository customerRepository;
-    private LocationStrategy strategy;
-
-    public OrderCreationService(LocationStrategy strategy) {
-        this.strategy = strategy;
-    }
 
     @Transactional
     public Order createOrder(OrderCreationDto orderCreationDto) {
@@ -60,16 +49,17 @@ public class OrderCreationService {
         for (RequiredProductDto requiredProductDto : requiredProductDtos) {
             Stock stock = stockRepository.findByProductIdAndLocationId(requiredProductDto.getProduct().getId(), requiredProductDto.getLocation().getId());
 
-            if (stock == null) throw new StockNotFoundException(requiredProductDto.toString());
+            if (stock == null) {
+                throw new StockNotFoundException(requiredProductDto.toString());
+            }
 
             Integer newQuantity = stock.getQuantity() - requiredProductDto.getQuantity();
-            if (newQuantity < 0)
+            if (newQuantity < 0) {
                 throw new NegativeQuantityException(stock.toString(), requiredProductDto.getQuantity());
-
+            }
             stock.setQuantity(newQuantity);
 
             stockRepository.save(stock);
-
         }
     }
 
