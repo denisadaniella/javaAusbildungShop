@@ -15,7 +15,7 @@ public class CsvUtil<T> {
     public List<T> fromCsv(Class<T> tClass, InputStream inputStream) throws IOException {
 
         CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(tClass).withHeader().withLineSeparator(System.lineSeparator());
+        CsvSchema schema = mapper.schemaFor(tClass).withHeader();
         ObjectReader objectReader = mapper.readerFor(tClass).with(schema);
 
         return (List<T>) objectReader.readValues(inputStream).readAll();
