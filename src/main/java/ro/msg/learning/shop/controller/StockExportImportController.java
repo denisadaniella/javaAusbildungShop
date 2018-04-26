@@ -16,16 +16,14 @@ public class StockExportImportController {
 
     private final StockExportImportService stockExportImportService;
 
-    @GetMapping(value = "/export")
-    public @ResponseBody
-    List<StockDto> exportStocks(@RequestParam Integer locationId) {
+    @GetMapping("/export")
+    public List<StockDto> exportStocks(@RequestParam Integer locationId) {
         return stockExportImportService.exportStocks(locationId);
     }
 
     @PostMapping(value = "/import", consumes = "text/csv", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody
-    String importStock(@RequestBody List<StockDto> stockDtos) {
+    public String importStock(@RequestBody List<StockDto> stockDtos) {
 
         List<StockDto> stocks = stockExportImportService.importStocks(stockDtos);
         return stocks.toString();

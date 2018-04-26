@@ -12,10 +12,10 @@ import ro.msg.learning.shop.repository.StockRepository;
 import ro.msg.learning.shop.util.DistanceMatrixUtil;
 import ro.msg.learning.shop.util.distancematrix.Distance;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class DistanceMatrixStrategy implements LocationStrategy {
@@ -35,10 +35,7 @@ public class DistanceMatrixStrategy implements LocationStrategy {
 
         Location closestLocation = getClosestLocation(orderCreationDto, commonLocations);
 
-        List<RequiredProductDto> requiredProductDtos = new ArrayList<>();
-        orderCreationDto.getProducts().forEach(p -> requiredProductDtos.add(new RequiredProductDto(closestLocation, productRepository.findOne(p.getProductId()), p.getQuantity())));
-        return requiredProductDtos;
-
+        return orderCreationDto.getProducts().stream().map(p -> new RequiredProductDto(closestLocation, productRepository.findOne(p.getProductId()), p.getQuantity())).collect(Collectors.toList());
     }
 
 

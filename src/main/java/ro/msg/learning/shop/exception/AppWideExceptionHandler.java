@@ -4,7 +4,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.HandlerMapping;
@@ -26,8 +25,7 @@ public class AppWideExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({NegativeInputParameterException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody
-    ErrorDetails handleIllegalArgumentException(HttpServletRequest request, Exception ex) {
+    public ErrorDetails handleIllegalArgumentException(HttpServletRequest request, Exception ex) {
         request.removeAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
         request.setAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE, Collections.singleton(MediaType.APPLICATION_JSON));
 
@@ -37,16 +35,14 @@ public class AppWideExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({NegativeQuantityException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody
-    ErrorDetails negativeQuantityExceptionHandler(HttpServletRequest request, Exception ex) {
+    public ErrorDetails negativeQuantityExceptionHandler(HttpServletRequest request, Exception ex) {
         return new ErrorDetails(request.getRequestURL().toString(), ex.getMessage());
     }
 
 
     @ExceptionHandler({LocationNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public @ResponseBody
-    ErrorDetails locationNotFoundExceptionHandler(HttpServletRequest request, Exception ex) {
+    public ErrorDetails locationNotFoundExceptionHandler(HttpServletRequest request, Exception ex) {
         request.removeAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
         request.setAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE, Collections.singleton(MediaType.APPLICATION_JSON));
 
